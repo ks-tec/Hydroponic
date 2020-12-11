@@ -264,6 +264,12 @@ The contents of this project may be updated without notice. Please be aware.
 このプロジェクトの内容は、予告なく更新される場合があります。 ご承知おきください。  
 
 ## Change log 更新履歴
+
+### 1.1.1
+DS18 reading wait time was added to settings.  
+
+DS18 からのデータ読取の待機時間を設定ファイルに追加しました。  
+
 ### 1.1.0
 The setting values was put out to an external file "hydroponic.json".  
 And also, water level dection was easily implemented using Touch Pin.  
