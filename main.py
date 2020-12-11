@@ -76,7 +76,7 @@ def load_settings(filename):
   global DISPLAY_SPLASH_ICON, DISPLAY_WAITING_SPLASH, DISPLAY_WAITING_PLATFORM, DISPLAY_TIMER_PERIOD
   global OLED_PIN_SCL, OLED_PIN_SDA, OLED_ADDRESS, OLED_WIDTH, OLED_HEIGHT
   global BME280_PIN_SCL, BME280_PIN_SDA, BME280_ADDRESS
-  global DS18_PIN_DQ, DS18_ADDRESS
+  global DS18_PIN_DQ, DS18_ADDRESS, DS18_READING_WAIT
   global WATER_LEVEL_PIN, WATER_LEVEL_SENSE_MAX, WATER_LEVEL_SENSE_MIN
 
   if filename is None or len(filename) == 0:
@@ -106,8 +106,9 @@ def load_settings(filename):
   BME280_ADDRESS = int(str(settings["BME280"]["ADDRESS"]), 0)
 
   # DS18B20 settinsgs
-  DS18_PIN_DQ  = int(str(settings["DS18X20"]["PIN_DQ"]), 0)
-  DS18_ADDRESS = [int(str(addr), 0) for addr in settings["DS18X20"]["ADDRESS"]]
+  DS18_PIN_DQ       = int(str(settings["DS18X20"]["PIN_DQ"]), 0)
+  DS18_ADDRESS      = [int(str(addr), 0) for addr in settings["DS18X20"]["ADDRESS"]]
+  DS18_READING_WAIT = int(str(settings["DS18X20"]["READING_WAIT"]), 0)
 
   # TOUTCH SENSOR settings
   WATER_LEVEL_PIN            = int(str(settings["WATER_LEVEL"]["PIN_DQ"]),    0)
@@ -251,7 +252,7 @@ if __name__ == "__main__":
 
     # gobal devices initialization (1-Wire DS18B20)
     ow = onewire.OneWire(pin=Pin(DS18_PIN_DQ))
-    ds18 = ds18.DS18(ow=ow)
+    ds18 = ds18.DS18(ow=ow, reading_wait=DS18_READING_WAIT)
     detect_ow_device(ds18, "DS18X20", DS18_ADDRESS)
 
     # global devices initialization (Capacitive Sensor)

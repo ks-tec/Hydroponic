@@ -20,6 +20,7 @@
 	,"DS18X20" : {
 		 "PIN_DQ" : 16
 		,"ADDRESS" : ["0x28", "0x82", "0x7d", "0x79", "0x97", "0x09", "0x03", "0x22"]
+		,"READING_WAIT" : 750
 	}
 	,"WATER_LEVEL" : {
 		 "PIN_DQ" : 14
