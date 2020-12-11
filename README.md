@@ -120,13 +120,34 @@ This time, we will use esptool to the following steps.
     1. Next, you put on the download files to the ESP32 board.  
         ```bash
         cd hydroponic
-        ampy --port COM3 put bme280.py
-        ampy --port COM3 put ds18.py
-        ampy --port COM3 put ssd1306.py
-        ampy --port COM3 put splashicon.py
-        ampy --port COM3 put waterlevel.py
+        ampy --port COM3 mkdir lib
+        ampy --port COM3 mkdir resource
+        ampy --port COM3 put lib/bme280.py /lib/bme280.py
+        ampy --port COM3 put lib/ds18.py /lib/ds18.py
+        ampy --port COM3 put lib/ssd1306.py /lib/ssd1306.py
+        ampy --port COM3 put lib/waterlevel.py /lib/waterlevel.py
+        ampy --port COM3 put resource/splashicon.py /resource/splashicon.py
         ampy --port COM3 put main.py
         ampy --port COM3 put hydroponic.json
+        ```
+
+    1. Check put files, and there is no problem if it is as follows.
+        ```bash
+        ampy --port COM3 ls
+          /boot.py
+          /hydroponic.json
+          /lib
+          /main.py
+          /resource
+
+        ampy --port COM3 ls /lib
+          /lib/bme280.py
+          /lib/ds18.py
+          /lib/ssd1306.py
+          /lib/waterlevel.py
+
+        ampy --port COM3 ls /resource
+          /resource/splashicon.py
         ```
 
     1. Next, you run program on the ESP32 board.  
@@ -170,13 +191,34 @@ This time, we will use esptool to the following steps.
     1. ESP32 ボードに このプロジェクトを書き込みます。  
         ```bash
         cd hydroponic
-        ampy --port COM3 put bme280.py
-        ampy --port COM3 put ds18.py
-        ampy --port COM3 put ssd1306.py
-        ampy --port COM3 put splashicon.py
-        ampy --port COM3 put waterlevel.py
+        ampy --port COM3 mkdir lib
+        ampy --port COM3 mkdir resource
+        ampy --port COM3 put lib/bme280.py /lib/bme280.py
+        ampy --port COM3 put lib/ds18.py /lib/ds18.py
+        ampy --port COM3 put lib/ssd1306.py /lib/ssd1306.py
+        ampy --port COM3 put lib/waterlevel.py /lib/waterlevel.py
+        ampy --port COM3 put resource/splashicon.py /resource/splashicon.py
         ampy --port COM3 put main.py
         ampy --port COM3 put hydroponic.json
+        ```
+
+    1. 配置したファイル群を確認して、以下のようになっていれば問題ありません。  
+        ```bash
+        ampy --port COM3 ls
+          /boot.py
+          /hydroponic.json
+          /lib
+          /main.py
+          /resource
+
+        ampy --port COM3 ls /lib
+          /lib/bme280.py
+          /lib/ds18.py
+          /lib/ssd1306.py
+          /lib/waterlevel.py
+
+        ampy --port COM3 ls /resource
+          /resource/splashicon.py
         ```
 
     1. ESP32 ボード上でプロジェクトを実行します。
