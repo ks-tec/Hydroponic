@@ -31,7 +31,7 @@ The following is an example of display while this project is running.
 
 ```
 [air]
-T=18.3C  H=53.56%
+T=18.3C H=53.56%
 P=1019.45hPa
 [water]
 W=18.6C L=82.6%
