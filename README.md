@@ -20,6 +20,22 @@ If the development environment has not been built, please build it while referri
 これを変更するには、開発環境を構築すると効率的です。  
 もし開発環境が未構築の場合は、Web サイト等を参照しながら構築してみてください。  
 
+## Example 実行例
+
+The following is an example of display while this project is running.  
+
+このプロジェクトの実行中の画面表示例です。  
+
+```
+[air]
+T=18.3C  H=53.56%
+P=1019.45hPa
+[water]
+W=18.6C L=82.6%
+....
+```
+
+
 * Reference 参考  
     * [[備忘録]ESP32-VSCode-microPythonでの開発環境の構築 - Qiita](https://qiita.com/kotaproj/items/b53006aef9d04053a5ee) (Japanese)  
 
