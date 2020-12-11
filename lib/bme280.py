@@ -46,19 +46,19 @@
 
 from micropython import const
 from ustruct import unpack, unpack_from
-from array import array
-import time
+from uarray import array
+import utime
 
 
 # BME280 default address.
 BME280_I2CADDR = 0x76
 
 # Operating Modes
-BME280_OSAMPLE_1 = 1
-BME280_OSAMPLE_2 = 2
-BME280_OSAMPLE_4 = 3
-BME280_OSAMPLE_8 = 4
-BME280_OSAMPLE_16 = 5
+BME280_OSAMPLE_1  = const(1)
+BME280_OSAMPLE_2  = const(2)
+BME280_OSAMPLE_4  = const(3)
+BME280_OSAMPLE_8  = const(4)
+BME280_OSAMPLE_16 = const(5)
 
 # BME280 register definitions
 BME280_REGISTER_CONTROL_HUM = const(0xF2)
@@ -66,6 +66,10 @@ BME280_REGISTER_CONTROL     = const(0xF4)
 
 
 class BME280:
+    """
+    This class is for using BME280 with I2C interface.
+    And, this class have a property to get readings with the @values.
+    """
 
     def __init__(self,
                  mode=BME280_OSAMPLE_1,
@@ -73,7 +77,12 @@ class BME280:
                  i2c=None,
                  **kwargs):
         """
-        Constructor
+        Constructor of BME280.
+
+        Args:
+            mode : BME280 sampling mode
+            address : I2C address
+            i2c : machine.I2C object
         """
         # Check that mode is valid.
         if mode not in [BME280_OSAMPLE_1, BME280_OSAMPLE_2, BME280_OSAMPLE_4,
@@ -115,13 +124,14 @@ class BME280:
         self._l3_resultarray = array("i", [0, 0, 0])
 
     def read_raw_data(self, result):
-        """ Reads the raw (uncompensated) data from the sensor.
+        """
+        Reads the raw (uncompensated) data from the sensor.
 
-            Args:
-                result: array of length 3 or alike where the result will be
-                stored, in temperature, pressure, humidity order
-            Returns:
-                None
+        Args:
+            result: array of length 3 or alike where the result will be
+            stored, in temperature, pressure, humidity order
+        Returns:
+            None
         """
 
         self._l1_barray[0] = self._mode
@@ -134,7 +144,7 @@ class BME280:
         sleep_time = 1250 + 2300 * (1 << self._mode)
         sleep_time = sleep_time + 2300 * (1 << self._mode) + 575
         sleep_time = sleep_time + 2300 * (1 << self._mode) + 575
-        time.sleep_us(sleep_time)  # Wait the required time
+        utime.sleep_us(sleep_time)  # Wait the required time
 
         # burst readout from 0xF7 to 0xFE, recommended by datasheet
         self.i2c.readfrom_mem_into(self.address, 0xF7, self._l8_barray)
@@ -151,16 +161,17 @@ class BME280:
         result[2] = raw_hum
 
     def read_compensated_data(self, result=None):
-        """ Reads the data from the sensor and returns the compensated data.
+        """
+        Reads the data from the sensor and returns the compensated data.
 
-            Args:
-                result: array of length 3 or alike where the result will be
-                stored, in temperature, pressure, humidity order. You may use
-                this to read out the sensor without allocating heap memory
+        Args:
+            result: array of length 3 or alike where the result will be
+            stored, in temperature, pressure, humidity order. You may use
+            this to read out the sensor without allocating heap memory
 
-            Returns:
-                array with temperature, pressure, humidity. Will be the one from
-                the result parameter if not None
+        Returns:
+            array with temperature, pressure, humidity. Will be the one from
+            the result parameter if not None
         """
         self.read_raw_data(self._l3_resultarray)
         raw_temp, raw_press, raw_hum = self._l3_resultarray
@@ -212,6 +223,9 @@ class BME280:
     def values(self):
         """
         human readable values
+
+        Return:
+            tupple of read values.
         """
         t, p, h = self.read_compensated_data()
 

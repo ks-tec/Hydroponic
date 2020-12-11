@@ -1,11 +1,19 @@
 # MicroPython 1bit-logo
 # bit array for using to icon of MicroPython.
 
+
 class SplashIcon:
+  """
+  This class define the splash icon.
+  """
+
   __slots__ = ("logo_width", "logo_height", "logo_icon")
 
   @classmethod
   def logo_v(cls):
+    """
+    This method returns vertical logo information.
+    """
     cls.logo_width  = logo_width_v
     cls.logo_height = logo_height_v
     cls.logo_icon   = logo_icon_v
@@ -13,6 +21,9 @@ class SplashIcon:
 
   @classmethod
   def logo_h(cls):
+    """
+    This method returns horizontal logo information.
+    """
     cls.logo_width  = logo_width_h
     cls.logo_height = logo_height_h
     cls.logo_icon   = logo_icon_h

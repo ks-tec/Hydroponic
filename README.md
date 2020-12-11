@@ -26,8 +26,8 @@ If the development environment has not been built, please build it while referri
 ## Hardware ハードウェア
 
 ### ESP32 board with OLED SSD1306
-![ESP32-board-with-OLED-SSD1306](./resources/ESP32-WROOM-32_001.jpg "ESP32 board with OLED SSD1306")  
-![Lolin-ESP32-with-OLED-pins](./resources/Lolin-ESP32-with-OLED-pins.jpg "Lolin ESP32 with OLED pins")  
+![ESP32-board-with-OLED-SSD1306](./img/ESP32-WROOM-32_001.jpg "ESP32 board with OLED SSD1306")  
+![Lolin-ESP32-with-OLED-pins](./img/Lolin-ESP32-with-OLED-pins.jpg "Lolin ESP32 with OLED pins")  
 
 * Reference 参考  
   * [SSD1306 | Solomon Systech Limited](https://www.solomon-systech.com/en/product/advanced-display/oled-display-driver-ic/ssd1306/) (OFFICIAL English)  
@@ -41,7 +41,7 @@ OLED SSD1306 は SOLOMON SYSTECH 社が提供する OLED ドライバです。
 また解像度が 128 x 64 で、取得した情報の表示先として使用しています。  
 
 ### BME280
-![GY-BME280](./resources/GY-BME280_001.jpg "BME280")  
+![GY-BME280](./img/GY-BME280_001.jpg "BME280")  
 
 * Reference 参考  
   * [Humidity Sensor BME280 | Bosch Sensortec](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/) (OFFICIAL English)  
@@ -54,7 +54,7 @@ BME280 は BOSCH 社が提供する多機能センサーで 温度・湿度・�
 I2C インターフェースで接続しています。  
 
 ### DS18B20
-![DS18B20](./resources/DS18B20_001.jpg "DS18B20")]  
+![DS18B20](./img/DS18B20_001.jpg "DS18B20")]  
 
 * Reference 参考  
   * [DS18B20 Programmable Resolution 1-Wire Digital Thermometer - Maxim Integrated](https://www.maximintegrated.com/en/products/sensors/DS18B20.html/tb_tab0) (OFFICIAL English)  
@@ -87,7 +87,7 @@ This time, we will use esptool to the following steps.
 ### (steps in English)
 1. Connect the ESP32 board and each devices.  
    Refer to following figure, you connect the devices according to the pin definition on the ESP32 board.  
-   ![Wiring Diagram](./resources/ESP32-Wiring-Diagram_001.jpg "Wiring Diagram")  
+   ![Wiring Diagram](./img/ESP32-Wiring-Diagram_001.jpg "Wiring Diagram")  
 
    If the pin definition is different, you need to change the program "main.py".  
 
@@ -124,7 +124,9 @@ This time, we will use esptool to the following steps.
         ampy --port COM3 put ds18.py
         ampy --port COM3 put ssd1306.py
         ampy --port COM3 put splashicon.py
+        ampy --port COM3 put waterlevel.py
         ampy --port COM3 put main.py
+        ampy --port COM3 put hydroponic.json
         ```
 
     1. Next, you run program on the ESP32 board.  
@@ -135,7 +137,7 @@ This time, we will use esptool to the following steps.
 #### (steps in Japanese)
 1. ESP32 ボードと各デバイスを配線します。  
    下図を参考に、ESP32 ボードのピン定義に合わせて接続してください。  
-   ![Wiring Diagram](./resources/ESP32-Wiring-Diagram_001.jpg "Wiring Diagram")  
+   ![Wiring Diagram](./img/ESP32-Wiring-Diagram_001.jpg "Wiring Diagram")  
 
    ESP32 ボードのピン定義が異なる場合は、プログラム main.py の変更が必要になります。  
 
@@ -172,7 +174,9 @@ This time, we will use esptool to the following steps.
         ampy --port COM3 put ds18.py
         ampy --port COM3 put ssd1306.py
         ampy --port COM3 put splashicon.py
+        ampy --port COM3 put waterlevel.py
         ampy --port COM3 put main.py
+        ampy --port COM3 put hydroponic.json
         ```
 
     1. ESP32 ボード上でプロジェクトを実行します。
@@ -184,10 +188,10 @@ This time, we will use esptool to the following steps.
 When you connect the ESP32 board to the power supply, the measurement starts automatically.  
 Or, When you want restart, you rerun the program already placed on the ESP32 board.  
 
+Change connection port name according to your environment.  
+
 ESP32 ボードと電源を繋ぐと、自動的に計測が始まります。  
 または、再起動したい場合は、ESP32 ボード上に配置済みのプログラムを再実行します。  
-
-Change connection port name according to your environment.  
 
 接続されているポート番号は、環境に合わせて変更してください。  
 
@@ -196,27 +200,21 @@ ampy --port COM3 run main.py
 ```
 
 ## What has been and will be これまでのこと、これからのこと
-I am NOT good at Python language, but rather just getting started and learning.  
+I am NOT good at Python language, but rather just getting started and having fun learning.  
 Still, I have made it this far.  
 
-At the moment, setting values are implemented on-code.  
-This will be fixed as soon as pssible.  
-
-私はPythonが得意ではなく、むしろ触れ始めたばかりで学んでいるところす。  
+私は Python が得意ではなく、むしろ触れ始めたばかりで楽しみながら学んでいるところす。  
 それでも、ここまで進んで来られました。
 
-現時点では、設定値などがオンコードで実装されています。  
-これは早急に対処していきます。  
-
-And also, I want to make a simple capacitive water level detect using Touch Pins.  
-If the water level can be detected, automatic water supply according to water level will be possible.  
+And also, a simple capacitive water level detection was implemented using Touch Pins.  
+If the water level can be detected, automatic water supply according to water level will be possible through relay control.  
 
 Ultimately, I aim for all-weather hydroponics using LED lights.  
 
-また、タッチピンを使用して簡単な静電容量方式の水位検出を行いたいと考えています。  
-水位検出を行えれば、水位に応じた自動給水ができるでしょう。  
+また、タッチピンを使用して簡易的なな静電容量方式の水位検出を実装しました。  
+水位検出を行えれば、リレー制御を通じて水位に応じた自動給水ができるでしょう。  
 
-最終的には、LED 光を利用した全天候型の水耕栽培を目指します。  
+最終的には、LED 光を利用した全天候型の水耕栽培を目指しています。  
 
 ## Note 注意事項
 The contents of this project may be updated without notice. Please be aware.  
@@ -224,7 +222,18 @@ The contents of this project may be updated without notice. Please be aware.
 このプロジェクトの内容は、予告なく更新される場合があります。 ご承知おきください。  
 
 ## Change log 更新履歴
-(1.0.0)  
+### 1.1.0
+The setting values was put out to an external file "hydroponic.json".  
+And also, water level dection was easily implemented using Touch Pin.  
+
+And I changed the directory structure to make it easier to understand the function of each file.  
+
+設定値を外部ファイル "hydroponic.json" に切り出しました。  
+また、タッチピンを使用して水位検知を簡易的に実装しました。  
+
+そして、ファイル毎の機能を把握しやすいようにディレクトリ構造を変更しました。    
+
+### 1.0.0
 First released.  
 The platform is ESP32 board, and using devices are OLED SSD1306, DS18B20, BME280.  
 

@@ -5,7 +5,7 @@ from micropython import const
 import framebuf
 
 
-# register definitions
+# SSD1306 register definitions
 SET_CONTRAST        = const(0x81)
 SET_ENTIRE_ON       = const(0xa4)
 SET_NORM_INV        = const(0xa6)
@@ -26,9 +26,18 @@ SET_CHARGE_PUMP     = const(0x8d)
 
 
 class SSD1306:
+    """
+    This class is base class for using SSD1306 OLED.
+    """
+
     def __init__(self, width, height, external_vcc):
         """
-        Consstructor
+        Consstructor of SSD1306.
+
+        Args:
+            width : Screen width (unit is dot)
+            height : Screen height (unit is dot)
+            external_vcc : Boolean value is False when using external vcc, or else True using internal vcc
         """
         self.width = width
         self.height = height
@@ -53,6 +62,9 @@ class SSD1306:
         self.init_display()
 
     def init_display(self):
+        """
+        Initialize display.
+        """
         for cmd in (
             SET_DISP | 0x00, # off
             # address setting
@@ -80,19 +92,34 @@ class SSD1306:
         self.show()
 
     def poweroff(self):
+        """
+        Turn off the power of display.
+        """
         self.write_cmd(SET_DISP | 0x00)
 
     def poweron(self):
+        """
+        Turn on the power of display.
+        """
         self.write_cmd(SET_DISP | 0x01)
 
     def contrast(self, contrast):
+        """
+        Set contrast of display.
+        """
         self.write_cmd(SET_CONTRAST)
         self.write_cmd(contrast)
 
     def invert(self, invert):
+        """
+        Invert of display.
+        """
         self.write_cmd(SET_NORM_INV | (invert & 1))
 
     def show(self):
+        """
+        Buffer data show to display.
+        """
         x0 = 0
         x1 = self.width - 1
         if self.width == 64:
@@ -109,9 +136,20 @@ class SSD1306:
 
 
 class SSD1306_I2C(SSD1306):
+    """
+    This class is for using SSD1306 OLED with I2C interface.
+    """
+
     def __init__(self, width, height, i2c, addr=0x3c, external_vcc=False):
         """
-        Constructor for I2C
+        Constructor of SSD1306_I2C connected with I2C interface.
+
+        Args:
+            width : Screen width (unit is dot)
+            height : Screen height (unit is dot)
+            i2c : machine.I2C object
+            addr : I2C address of SSD1306
+            external_vcc : Boolean value is False when using external vcc, or else True using internal vcc
         """
         self.i2c = i2c
         self.addr = addr
@@ -119,11 +157,23 @@ class SSD1306_I2C(SSD1306):
         super().__init__(width, height, external_vcc)
 
     def write_cmd(self, cmd):
+        """
+        Command write to SSD1306.
+
+        Args:
+            cmd : Command to write
+        """
         self.temp[0] = 0x80 # Co=1, D/C#=0
         self.temp[1] = cmd
         self.i2c.writeto(self.addr, self.temp)
 
     def write_data(self, buf):
+        """
+        Data write to SSD1306.
+
+        Args:
+            buf : Data to write
+        """
         self.temp[0] = self.addr << 1
         self.temp[1] = 0x40 # Co=0, D/C#=1
         self.i2c.start()
@@ -133,9 +183,22 @@ class SSD1306_I2C(SSD1306):
 
 
 class SSD1306_SPI(SSD1306):
+    """
+    This class is for using SSD1306 OLED with SPI interface.
+    """
+
     def __init__(self, width, height, spi, dc, res, cs, external_vcc=False):
         """
-        Constructor for SPI
+        Constructor of SSD1306_SPI connected with SPI interface.
+
+        Args:
+            width : Screen width (unit is dot)
+            height : Screen height (unit is dot)
+            spi : machine.SPI object
+            dc : machine.Pin object of DC pin
+            res : machone.Pin object of RES pin
+            cs : machine.Pin object of CS pin
+            external_vcc : Boolean value is False when using external vcc, or else True using internal vcc
         """
         self.rate = 10 * 1024 * 1024
         dc.init(dc.OUT, value=0)
@@ -154,6 +217,12 @@ class SSD1306_SPI(SSD1306):
         super().__init__(width, height, external_vcc)
 
     def write_cmd(self, cmd):
+        """
+        Command write to SSD1306.
+
+        Args:
+            cmd : Command to write
+        """
         self.spi.init(baudrate=self.rate, polarity=0, phase=0)
         self.cs(1)
         self.dc(0)
@@ -162,6 +231,12 @@ class SSD1306_SPI(SSD1306):
         self.cs(1)
 
     def write_data(self, buf):
+        """
+        Data write to SSD1306.
+
+        Args:
+            buf : Data to write
+        """
         self.spi.init(baudrate=self.rate, polarity=0, phase=0)
         self.cs(1)
         self.dc(1)

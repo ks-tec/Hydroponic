@@ -1,0 +1,29 @@
+{
+	"COMMON" : {
+		 "SPLASH_ICON" : "v"
+		,"SPLASH_WAITING" : 3000
+		,"PLATFORM_WAITING" : 2000
+		,"DISPLAY_TIMER" : 9000
+	}
+	,"OLED" : {
+		 "PIN_SCL" : 4
+		,"PIN_SDA" : 5
+		,"ADDRESS" : "0x3c"
+		,"WIDTH" : 128
+		,"HEIGHT" : 64
+	}
+	,"BME280" : {
+		 "PIN_SCL" : 26
+		,"PIN_SDA" : 25
+		,"ADDRESS" : "0x76"
+	}
+	,"DS18X20" : {
+		 "PIN_DQ" : 16
+		,"ADDRESS" : ["0x28", "0x82", "0x7d", "0x79", "0x97", "0x09", "0x03", "0x22"]
+	}
+	,"WATER_LEVEL" : {
+		 "PIN_DQ" : 14
+		,"SENSE_MAX" : 375
+		,"SENSE_MIN" : 230
+	}
+}

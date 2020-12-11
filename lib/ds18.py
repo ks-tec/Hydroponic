@@ -9,7 +9,7 @@
 
 from micropython import const
 from ds18x20 import DS18X20
-import time
+import utime
 
 
 # DS18x20 default waiting time
@@ -17,13 +17,22 @@ DS18_READING_WAIT = const(750)
 
 
 class DS18(DS18X20):
+  """
+  This class is using DS18x20 with a 1-Wire interface.
+  And, this class have a property to get readings with the @values.
+  """
 
   def __init__(self, ow=None, reading_wait=DS18_READING_WAIT):
     """
-    Constructor
+    Constructor of DS18.
+
+    Args:
+      ow : machine.OneWire object
+      reading_wait : waiting time to read value
     """
     if ow is None:
       raise ValueError('An OneWire object is required.')
+
     self.ow = ow
     self.reading_wait = reading_wait
 
@@ -33,11 +42,15 @@ class DS18(DS18X20):
   def values(self):
     """
     human readable values
-    """
-    self.convert_temp()
-    time.sleep_ms(self.reading_wait)
 
+    Return:
+      tupple of read values.
+    """
     values = []
+
+    self.convert_temp()
+    utime.sleep_ms(self.reading_wait)
+
     roms = self.scan()
     for rom in roms:
       # print("Found DS18 devices (raw): ", rom)
