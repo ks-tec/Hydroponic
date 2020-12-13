@@ -34,7 +34,7 @@ The following is an example of display while this project is running.
 T=18.3C H=53.56%
 P=1019.45hPa
 [water]
-W=18.6C L=82.6%
+W=18.6C L=92.6%
 ....
 ```
 
@@ -69,7 +69,7 @@ BME280 は BOSCH 社が提供する多機能センサーで 温度・湿度・�
 I2C インターフェースで接続しています。  
 
 ### DS18B20
-![DS18B20](./img/DS18B20_001.jpg "DS18B20")]  
+![DS18B20](./img/DS18B20_001.jpg "DS18B20")  
 
 * Reference 参考  
   * [DS18B20 Programmable Resolution 1-Wire Digital Thermometer - Maxim Integrated](https://www.maximintegrated.com/en/products/sensors/DS18B20.html/tb_tab0) (OFFICIAL English)  
@@ -84,6 +84,18 @@ And it is connected with 1-Wire interface and uses a warterproof product.
 
 DS18B20 は MAXIM 社が提供するサーミスタデバイスです。  
 1-Wire インターフェースで接続しており、防水された製品を使用しています。  
+
+### Relay
+![Relay](./img/RelayModule_001.jpg "Relay")  
+
+* Reference 参考  
+  * [5V 1ch Relay Module high/low level trigger](https://www.amazon.co.jp/gp/product/B0116IZ9FK/ref=ox_sc_saved_title_4?smid=A1XEAMF1H64GNM&psc=1) (Amazon)  
+
+The relay is a component that receives an electric signal from the outside and turns on / off and switches the electric circuit.  
+This time, it is used to switch the pump on / off by detecting the water level.  
+
+リレーとは外部から電気信号を受け取り、電気回路のオン/オフや切り替えを行う部品です。  
+今回は水位検知によるポンプのオン/オフを切り替えるために使います。  
 
 ## Installation 導入方法
 
@@ -105,6 +117,7 @@ This time, we will use esptool to the following steps.
    ![Wiring Diagram](./img/ESP32-Wiring-Diagram_001.jpg "Wiring Diagram")  
 
    If the pin definition is different, you need to change the program "main.py".  
+   In addition, since the motor is connected instead of the water supply pump, please read it.  
 
 1. Install the firmware of MicroPython to the ESP32 board  
 
@@ -139,7 +152,9 @@ This time, we will use esptool to the following steps.
         ampy --port COM3 mkdir resource
         ampy --port COM3 put lib/bme280.py /lib/bme280.py
         ampy --port COM3 put lib/ds18.py /lib/ds18.py
+        ampy --port COM3 put lib/relay.py /lib/relay.py
         ampy --port COM3 put lib/ssd1306.py /lib/ssd1306.py
+        ampy --port COM3 put lib/util.py /lib/util.py
         ampy --port COM3 put lib/waterlevel.py /lib/waterlevel.py
         ampy --port COM3 put resource/splashicon.py /resource/splashicon.py
         ampy --port COM3 put main.py
@@ -148,7 +163,7 @@ This time, we will use esptool to the following steps.
 
     1. Check put files, and there is no problem if it is as follows.
         ```bash
-        ampy --port COM3 ls
+        ampy --port COM3 ls /
           /boot.py
           /hydroponic.json
           /lib
@@ -158,7 +173,9 @@ This time, we will use esptool to the following steps.
         ampy --port COM3 ls /lib
           /lib/bme280.py
           /lib/ds18.py
+          /lib/relay.py
           /lib/ssd1306.py
+          /lib/util.py
           /lib/waterlevel.py
 
         ampy --port COM3 ls /resource
@@ -176,6 +193,7 @@ This time, we will use esptool to the following steps.
    ![Wiring Diagram](./img/ESP32-Wiring-Diagram_001.jpg "Wiring Diagram")  
 
    ESP32 ボードのピン定義が異なる場合は、プログラム main.py の変更が必要になります。  
+   なお、給水ポンプの代わりにモーターを繋いでいますので、読み替えてください。  
 
 1. MicroPython を導入します。  
 
@@ -210,7 +228,9 @@ This time, we will use esptool to the following steps.
         ampy --port COM3 mkdir resource
         ampy --port COM3 put lib/bme280.py /lib/bme280.py
         ampy --port COM3 put lib/ds18.py /lib/ds18.py
+        ampy --port COM3 put lib/relay.py /lib/relay.py
         ampy --port COM3 put lib/ssd1306.py /lib/ssd1306.py
+        ampy --port COM3 put lib/util.py /lib/util.py
         ampy --port COM3 put lib/waterlevel.py /lib/waterlevel.py
         ampy --port COM3 put resource/splashicon.py /resource/splashicon.py
         ampy --port COM3 put main.py
@@ -219,7 +239,7 @@ This time, we will use esptool to the following steps.
 
     1. 配置したファイル群を確認して、以下のようになっていれば問題ありません。  
         ```bash
-        ampy --port COM3 ls
+        ampy --port COM3 ls /
           /boot.py
           /hydroponic.json
           /lib
@@ -229,7 +249,9 @@ This time, we will use esptool to the following steps.
         ampy --port COM3 ls /lib
           /lib/bme280.py
           /lib/ds18.py
+          /lib/relay.py
           /lib/ssd1306.py
+          /lib/util.py
           /lib/waterlevel.py
 
         ampy --port COM3 ls /resource
@@ -263,13 +285,13 @@ Still, I have made it this far.
 私は Python が得意ではなく、むしろ触れ始めたばかりで楽しみながら学んでいるところす。  
 それでも、ここまで進んで来られました。
 
-And also, a simple capacitive water level detection was implemented using Touch Pins.  
-If the water level can be detected, automatic water supply according to water level will be possible through relay control.  
+It supports simple capacitive water level detection using a touch pin.  
+And, it also supports automatic water supply through relay control that accompanies water level detection.  
+
+タッチピンを使用して簡易的なな静電容量方式の水位検出に対応しています。  
+そして、水位検出に伴うリレー制御を通じた自動給水にも対応しています。  
 
 Ultimately, I aim for all-weather hydroponics using LED lights.  
-
-また、タッチピンを使用して簡易的なな静電容量方式の水位検出を実装しました。  
-水位検出を行えれば、リレー制御を通じて水位に応じた自動給水ができるでしょう。  
 
 最終的には、LED 光を利用した全天候型の水耕栽培を目指しています。  
 
@@ -280,6 +302,13 @@ The contents of this project may be updated without notice. Please be aware.
 
 ## Change log 更新履歴
 
+### 1.2.0
+It supported relay control that accompanies water level detection.  
+This addition of the relay control function is for water supply applications.  
+
+水位検知に伴うリレーの制御に対応しました。  
+このリレー制御機能の追加は給水用途向けです。  
+
 ### 1.1.1
 DS18 reading wait time was added to settings.  
 
@@ -287,12 +316,12 @@ DS18 からのデータ読取の待機時間を設定ファイルに追加しま
 
 ### 1.1.0
 The setting values was put out to an external file "hydroponic.json".  
-And also, water level dection was easily implemented using Touch Pin.  
+And also, it supported simple water level detection that using Touch Pin.  
 
 And I changed the directory structure to make it easier to understand the function of each file.  
 
 設定値を外部ファイル "hydroponic.json" に切り出しました。  
-また、タッチピンを使用して水位検知を簡易的に実装しました。  
+また、タッチピンを使用した簡易的な水位検知に対応しました。  
 
 そして、ファイル毎の機能を把握しやすいようにディレクトリ構造を変更しました。    
 

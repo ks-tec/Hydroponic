@@ -17,25 +17,25 @@ class WaterLevelSensor:
   And, this class have a property to get readings with the @values.
   """
 
-  def __init__(self, tp=None, water_level_max=WATER_LEVEL_SENSE_MAX, water_level_min=WATER_LEVEL_SENSE_MIN):
+  def __init__(self, tp=None, sense_max=WATER_LEVEL_SENSE_MAX, sense_min=WATER_LEVEL_SENSE_MIN):
     """
     Constructor of WaterLevelSensor
 
     Args:
       tp : machin.TouchPin object
-      water_level_max : Max capacitance
-      water_level_min : Min capacitance
+      sense_max : Max capacitance
+      sense_min : Min capacitance
     """
     if tp is None:
       raise ValueError('A TouchPad object is required.')
-    if water_level_max < water_level_min:
+    if sense_max < sense_min:
       raise ValueError('Min threshold must be less than Max threshold.')
 
     self.sensor  = tp
     self.inverse = True
-    self.water_level_max      = water_level_max
-    self.water_level_min      = water_level_min
-    self.water_level_cap_size = water_level_max - water_level_min
+    self.sense_max = sense_max
+    self.sense_min = sense_min
+    self.cap_size  = sense_max - sense_min
 
   @property
   def values(self):
@@ -48,13 +48,13 @@ class WaterLevelSensor:
     values = []
 
     wlevel_raw = self.sensor.read()
-    if wlevel_raw < self.water_level_min:
-      wlevel_raw = self.water_level_min
-    elif self.water_level_max < wlevel_raw:
-      wlevel_raw = self.water_level_max
-    wlevel_raw -= self.water_level_min
+    if wlevel_raw < self.sense_min:
+      wlevel_raw = self.sense_min
+    elif self.sense_max < wlevel_raw:
+      wlevel_raw = self.sense_max
+    wlevel_raw -= self.sense_min
 
-    wlevel_per = wlevel_raw / self.water_level_cap_size * 100
+    wlevel_per = wlevel_raw / self.cap_size * 100
     if self.inverse == True:
       wlevel_per = 100 - wlevel_per
     values.append("{:3.1f}%".format(wlevel_per))

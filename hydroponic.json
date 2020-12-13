@@ -1,9 +1,8 @@
 {
 	"COMMON" : {
-		 "SPLASH_ICON" : "v"
+		 "SPLASH_ICON" : "vertical"
 		,"SPLASH_WAITING" : 3000
 		,"PLATFORM_WAITING" : 2000
-		,"DISPLAY_TIMER" : 9000
 	}
 	,"OLED" : {
 		 "PIN_SCL" : 4
@@ -11,6 +10,7 @@
 		,"ADDRESS" : "0x3c"
 		,"WIDTH" : 128
 		,"HEIGHT" : 64
+		,"DISPLAY_INTERVAL" : 9000
 	}
 	,"BME280" : {
 		 "PIN_SCL" : 26
@@ -23,8 +23,17 @@
 		,"READING_WAIT" : 750
 	}
 	,"WATER_LEVEL" : {
-		 "PIN_DQ" : 14
+		 "IS_ENABLE" : "true"
+		,"PIN_DQ" : 14
 		,"SENSE_MAX" : 375
 		,"SENSE_MIN" : 230
+	}
+	,"WATER_SUPPLY" {
+		 "IS_ENABLE" : "true"
+		,"PIN_SUPPLY" : 13
+		,"SUPPLY_START" : 20
+		,"SUPPLY_FINISH" : 90
+		,"DETECT_INTERVAL_ON" : 300000
+		,"DETECT_INTERVAL_OFF" : 1000
 	}
 }
