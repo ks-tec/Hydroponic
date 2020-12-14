@@ -13,8 +13,8 @@
 		,"DISPLAY_INTERVAL" : 9000
 	}
 	,"BME280" : {
-		 "PIN_SCL" : 26
-		,"PIN_SDA" : 25
+		 "PIN_SCL" : 4
+		,"PIN_SDA" : 5
 		,"ADDRESS" : "0x76"
 	}
 	,"DS18X20" : {
