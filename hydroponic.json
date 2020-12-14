@@ -28,7 +28,7 @@
 		,"SENSE_MAX" : 375
 		,"SENSE_MIN" : 230
 	}
-	,"WATER_SUPPLY" {
+	,"WATER_SUPPLY" : {
 		 "IS_ENABLE" : "true"
 		,"PIN_SUPPLY" : 13
 		,"SUPPLY_START" : 20
