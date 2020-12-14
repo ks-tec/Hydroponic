@@ -361,7 +361,7 @@ if __name__ == "__main__":
     detect_i2c_device(i2c, "SSD1306", OLED_ADDRESS)
 
     # gobal devices initialization (I2C BME280)
-    # i2c = I2C(scl=Pin(BME280_PIN_SCL), sda=Pin(BME280_PIN_SDA))
+    i2c = I2C(scl=Pin(BME280_PIN_SCL), sda=Pin(BME280_PIN_SDA))
     bme = bme280.BME280(i2c=i2c)
     detect_i2c_device(i2c, "BME280", BME280_ADDRESS)
 
