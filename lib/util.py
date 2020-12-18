@@ -21,8 +21,8 @@
 def strtobool(value):
   """
   This method convert string to bool.
-  Return False for values of the keywords "false" "f" "no" "n" "0" or 0.
-  Or, return True for values of the keywords "true" "t" "yes" "y" "1" or 1.
+  Return False for values of the keywords "false" "f" "no" "n" "off" "0" or 0.
+  Or, return True for values of the keywords "true" "t" "yes" "y" "on" "1" or 1.
   Or, othres return None.
 
   Args:

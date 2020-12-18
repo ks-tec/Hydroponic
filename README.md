@@ -23,7 +23,7 @@ If the development environment has not been built, please build it while referri
 * Reference 参考  
     * [[備忘録]ESP32-VSCode-microPythonでの開発環境の構築 - Qiita](https://qiita.com/kotaproj/items/b53006aef9d04053a5ee) (Japanese)  
 
-## Example 実行例
+## Running Example 実行例
 
 The following is an example of display while this project is running.  
 
@@ -112,13 +112,12 @@ This time, we will use esptool to the following steps.
   * [ampy: MicroPythonマイコンとPCとのファイル転送ツール – Ambient](https://ambidata.io/blog/2018/03/15/ampy/) (Japanese)  
   * [ESP32でMicroPython その2 (ampy) – Personal Tech Lab](https://personaltechlab.wordpress.com/2017/08/20/esp32%E3%81%A7micropython-%E3%81%9D%E3%81%AE2-ampy/) (Japanese)
 
-
 ### (steps in English)
 1. Connect the ESP32 board and each devices.  
    Refer to following figure, you connect the devices according to the pin definition on the ESP32 board.  
    ![Wiring Diagram](./img/ESP32-Wiring-Diagram_001.jpg "Wiring Diagram")  
 
-   If the pin definition is different, you need to change the program "main.py".  
+   If the pin definition is different, you need to change settings in "hydroponic.json".  
    In addition, since the motor is connected instead of the water supply pump, please read it.  
 
 1. Install the firmware of MicroPython to the ESP32 board  
@@ -194,7 +193,7 @@ This time, we will use esptool to the following steps.
    下図を参考に、ESP32 ボードのピン定義に合わせて接続してください。  
    ![Wiring Diagram](./img/ESP32-Wiring-Diagram_001.jpg "Wiring Diagram")  
 
-   ESP32 ボードのピン定義が異なる場合は、プログラム main.py の変更が必要になります。  
+   ESP32 ボードのピン定義が異なる場合は、設定ファイル "hydroponic.json" の変更が必要になります。  
    なお、給水ポンプの代わりにモーターを繋いでいますので、読み替えてください。  
 
 1. MicroPython を導入します。  
@@ -264,6 +263,36 @@ This time, we will use esptool to the following steps.
         ```bash
         ampy --port COM3 run main.py
         ```
+
+## Settings 設定内容
+
+| Group | Key | Value | Defalt Value | Unit |
+| ---- | ---- | ---- | ---- | ---- |
+| COMMON | SPLASH_ICON | vertical / horizontal / v / h | vertical | - |
+|^| SPLASH_WAITING | splash icon display time | 3000 | msec |
+|^| PLATFORM_WAITING | platform information display time | 2000 | msec |
+| OLED | PIN_SCL | SCL pin | 4 | - |
+| ^ | PIN_SDA | SCL pin | 5 | - |
+| ^ | ADDRESS | SSD1306 OLED address | "0x3c" | - |
+| ^ | WIDTH | display width | 128 | dot |
+| ^ | HEIGHT | display height | 64 | dot |
+| ^ | DISPLAY_INTERVAL | display reflesh time | 9000 | msec |
+| BME280 | PIN_SCL | SCL pin | 4 | - |
+| ^ | PIN_SDA | SCL pin | 5 | - |
+| ^ | ADDRESS | BME280 multi-function sensor address | "0x76" | - |
+| DS18X20 | PIN_DQ | data pin | 16 | - |
+| ^ | ADDRESS | DS18X20 thermistor address list | ["0x28", "0x82", "0x7d", "0x79", "0x97", "0x09", "0x03", "0x22"] | - |
+| ^ | READING_WAIT | data reading wait time | 750 | msec |
+| WATER_LEVEL | IS_ENABLE | true / false / yes / no / on / off / t / f / y / n / 1 / 0 | true | - |
+| ^ | PIN_DQ | data pin | 14 | - |
+| ^ | SENSE_MAX | max capacitive level | 375 | F |
+| ^ | SENSE_MIN | min capacitive level | 230 | F |
+| WATER_SUPPLY | IS_ENABLE | true / false / yes / no / on / off / t / f / y / n / 1 / 0 | true | - |
+| ^ | PIN_DQ | data pin | 13 | - |
+| ^ | SUPPLY_START | supply start water level | 20 | % |
+| ^ | SUPPLY_FINISH | supply finish water level | 90 | % |
+| ^ | DETECT_INTERVAL_ON | supply start capacitive level reading wait time | 5000 | msec |
+| ^ | DETECT_INTERVAL_OFF | supply finish capacitive level reading wait time | 1000 | msec |
 
 ## Usage 使用方法
 When you connect the ESP32 board to the power supply, the measurement starts automatically.  

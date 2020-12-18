@@ -30,7 +30,7 @@
 	}
 	,"WATER_SUPPLY" : {
 		 "IS_ENABLE" : "true"
-		,"PIN_SUPPLY" : 13
+		,"PIN_DQ" : 13
 		,"SUPPLY_START" : 20
 		,"SUPPLY_FINISH" : 90
 		,"DETECT_INTERVAL_ON" : 5000

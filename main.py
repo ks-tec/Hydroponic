@@ -186,7 +186,7 @@ def load_settings(filename):
 
   # WATER SUPPLY RELAY settings
   WATER_SUPPLY_ENABLE       = util.strtobool(str(settings["WATER_SUPPLY"]["IS_ENABLE"]))
-  WATER_SUPPLY_PIN          = int(str(settings["WATER_SUPPLY"]["PIN_SUPPLY"]))
+  WATER_SUPPLY_PIN          = int(str(settings["WATER_SUPPLY"]["PIN_DQ"]))
   WATER_SUPPLY_START        = float(str(settings["WATER_SUPPLY"]["SUPPLY_START"]))
   WATER_SUPPLY_FINISH       = float(str(settings["WATER_SUPPLY"]["SUPPLY_FINISH"]))
   WATER_SUPPLY_ON_INTERVAL  = int(str(settings["WATER_SUPPLY"]["DETECT_INTERVAL_ON"]))

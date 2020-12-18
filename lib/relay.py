@@ -1,4 +1,4 @@
-# MicroPython Water Level Detector.
+# MicroPython Relay controller.
 # Using GPIO pin on ESP32 board.
 #
 # Copyright (c) 2020 ks-tec
@@ -34,7 +34,8 @@ class Relay:
 
     Args:
       pin : Pin object
-      supply_start : switching water level
+      supply_start : threshold to switch to on
+      supply_finish : threshold to switch to off
     """
     if pin is None:
       raise ValueError("A Pin object is required.")
