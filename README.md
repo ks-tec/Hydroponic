@@ -269,8 +269,8 @@ This time, we will use esptool to the following steps.
 | Group | Key | Value | Defalt Value | Unit |
 | ---- | ---- | ---- | ---- | ---- |
 | COMMON | SPLASH_ICON | vertical / horizontal / v / h | vertical | - |
-|^| SPLASH_WAITING | splash icon display time | 3000 | msec |
-|^| PLATFORM_WAITING | platform information display time | 2000 | msec |
+| ^ | SPLASH_WAITING | splash icon display time | 3000 | msec |
+| ^ | PLATFORM_WAITING | platform information display time | 2000 | msec |
 | OLED | PIN_SCL | SCL pin | 4 | - |
 | ^ | PIN_SDA | SCL pin | 5 | - |
 | ^ | ADDRESS | SSD1306 OLED address | "0x3c" | - |
