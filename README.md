@@ -24,11 +24,9 @@ The contents of this project may be updated without notice. Please be aware.
 ## Change log 更新履歴
 
 ### 1.2.1
-It separated the definition of pins and more from main.py to settings.json.  
-And it separated README to *_en and *_jp.
+It separated README file to *_en and *_jp.
 
-接続ピンなどの定義を main.py から settings.json に分離しました。
-また、README ファイルを *_en と *_jp に分割しました。
+README ファイルを *_en と *_jp に分割しました。
 
 ### 1.2.0
 It supported relay control that accompanies water level detection.  
