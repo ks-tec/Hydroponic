@@ -12,9 +12,9 @@ Please choise language to want for reading and open from the following link.
 README ファイルは言語ごとに分割されています。  
 以下のリンクから読みたい言語を選択して開いてください。
 
-[English](README_en.md)
+[English](./README_en.md)
 
-[日本語](README_jp.md)
+[日本語](./README_jp.md)
 
 ## Note 注意事項
 The contents of this project may be updated without notice. Please be aware.  
