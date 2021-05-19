@@ -27,7 +27,7 @@ The contents of this project may be updated without notice. Please be aware.
 Changed the keyword "PIN_SUPPLY" in "WATER_SUPPLY" section to PIN_DQ.  
 And added the setting values to README, it separated for language to *_en and *_jp.
 
-WATER_SUPPLY セクションの設定キーワード PIN_SUPPLY を PIN_DQ に変更しました。
+WATER_SUPPLY セクションの設定キーワード PIN_SUPPLY を PIN_DQ に変更しました。  
 また、README に設定値群を記載して、言語ごとに *_en と *_jp で分割しました。
 
 ### 1.2.0
