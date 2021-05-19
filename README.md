@@ -24,9 +24,11 @@ The contents of this project may be updated without notice. Please be aware.
 ## Change log 更新履歴
 
 ### 1.2.1
-It separated README file to *_en and *_jp.
+Changed the keyword "PIN_SUPPLY" in "WATER_SUPPLY" section to PIN_DQ.  
+And added the setting values to README, it separated for language to *_en and *_jp.
 
-README ファイルを *_en と *_jp に分割しました。
+WATER_SUPPLY セクションの設定キーワード PIN_SUPPLY を PIN_DQ に変更しました。
+また、README に設定値群を記載して、言語ごとに *_en と *_jp で分割しました。
 
 ### 1.2.0
 It supported relay control that accompanies water level detection.  
