@@ -25,6 +25,18 @@ W=18.6C L=92.6%
 ....
 ```
 
+画面に表示される各項目が意味するものは、以下のとおりです。  
+
+| Classification | Display Item | Display Content | Unit |
+| ---- | ---- | ---- | ---- |
+| air | - | 大気 | - |
+| ^ | T | 気温 | C, Celsius |
+| ^ | H | 湿度 | %, Percent |
+| ^ | P | 気圧 | hPa, Hectopascal |
+| water | - | 液体 | - |
+| ^ | W | 液体温度 | C, Celsius |
+| ^ | L | 液面レベル | %, Percent |
+
 ## Hardware ハードウェア
 
 ### ESP32 board with OLED SSD1306
