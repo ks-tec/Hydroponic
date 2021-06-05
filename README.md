@@ -24,10 +24,10 @@ The contents of this project may be updated without notice. Please be aware.
 ## Change log 更新履歴
 
 ### 1.2.2
-It supported the temperature unit "degrees Celsius" or "degrees Fahrenheit".
+It supported the temperature unit "degrees Celsius" or "degrees Fahrenheit".  
 And added the keyword "DISPLAY_TEMPERATURE_UNIT" in "COMMON" section.  
 
-温度単位で 摂氏 と 華氏 に対応しました。
+温度単位で 摂氏 と 華氏 に対応しました。  
 COMMON セクションの設定キーワード DISPLAY_TEMPERATURE_UNIT を追加しました。
 
 ### 1.2.1
