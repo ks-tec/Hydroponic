@@ -26,6 +26,18 @@ W=18.6C L=92.6%
 ....
 ```
 
+The meaning of each item displayed is as follows.
+
+| Classification | Display Item | Display Content | Unit |
+| ---- | ---- | ---- | ---- |
+| air | - | Atmosphere | - |
+| ^ | T | Atmospheric Temperature | C, Celsius |
+| ^ | H | Atmospheric Humidity | %, Percent |
+| ^ | P | Atmospheric Pressure | hPa, Hectopascal |
+| water | - | Liquid | - |
+| ^ | W | Water Temperature | C, Celsius |
+| ^ | L | Water Level | %, Percent |
+
 ## Hardware ハードウェア
 
 ### ESP32 board with OLED SSD1306
