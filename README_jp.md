@@ -27,7 +27,7 @@ W=18.6C L=92.6%
 
 画面に表示される各項目が意味するものは、以下のとおりです。  
 
-| Classification | Display Item | Display Content | Unit |
+| 分類 | 項目 | 表示内容 | 単位 |
 | ---- | ---- | ---- | ---- |
 | air | - | 大気 | - |
 | ^ | T | 気温 | C, Celsius |
