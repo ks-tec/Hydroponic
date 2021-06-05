@@ -3,6 +3,7 @@
 		 "SPLASH_ICON" : "vertical"
 		,"SPLASH_WAITING" : 3000
 		,"PLATFORM_WAITING" : 2000
+		,"TEMPERATURE_UNIT" : "C"
 	}
 	,"OLED" : {
 		 "PIN_SCL" : 4

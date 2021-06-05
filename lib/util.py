@@ -46,6 +46,22 @@ def strtobool(value):
   elif value.lower() in ["true", "t", "yes", "y", "on", "1"] or value == 1:
     ret_value = True
   else:
-    raise ValueError("")
+    raise ValueError("not supported bool value.")
 
   return ret_value
+
+def conv_temperature_unit(value, unit):
+  """
+  """
+  if type(value) is str and value.upper() in ["C", "F"]:
+    raise TypeError("the type of paramter unit must be string.")
+
+  if unit.upper() == "C":
+    pass
+  elif unit.upper() == "F":
+    value = value * 1.8 + 32
+  else:
+    raise ValueError("not supported temperature unit.")
+  
+  return value
+   

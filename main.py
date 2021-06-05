@@ -124,6 +124,22 @@ def wsupply_callback(id, interval_on_ms, interval_off_ms):
 
     utime.sleep_ms(interval_on_ms)
 
+def conv_temperature(value, unit):
+  """
+  """
+  if type(unit) is str and unit.upper() in ["C", "F"]:
+    raise TypeError("the type of paramter unit must be string.")
+
+  if unit.upper() == "C":
+    pass
+  elif unit.upper() == "F":
+    value = value * 1.8 + 32
+  else:
+    raise ValueError("")
+  
+  return value
+   
+
 
 # ==================== Configuration Functions ====================
 
@@ -140,7 +156,7 @@ def load_settings(filename):
     ValueError : A filename of settings is not specified.
     OSError : A setting file is not exists.
   """
-  global DISPLAY_SPLASH_ICON, DISPLAY_WAITING_SPLASH, DISPLAY_WAITING_PLATFORM
+  global DISPLAY_SPLASH_ICON, DISPLAY_WAITING_SPLASH, DISPLAY_WAITING_PLATFORM, DISPLAY_TEMPERATURE_UNIT
   global OLED_PIN_SCL, OLED_PIN_SDA, OLED_ADDRESS, OLED_WIDTH, OLED_HEIGHT, OLED_INTERVAL
   global BME280_PIN_SCL, BME280_PIN_SDA, BME280_ADDRESS
   global DS18_PIN_DQ, DS18_ADDRESS, DS18_READING_WAIT
@@ -159,6 +175,7 @@ def load_settings(filename):
   DISPLAY_SPLASH_ICON      = str(settings["COMMON"]["SPLASH_ICON"]).lower()
   DISPLAY_WAITING_SPLASH   = int(str(settings["COMMON"]["SPLASH_WAITING"]))
   DISPLAY_WAITING_PLATFORM = int(str(settings["COMMON"]["PLATFORM_WAITING"]))
+  DISPLAY_TEMPERATURE_UNIT = str(settings["COMMON"]["TEMPERATURE_UNIT"])
 
   # OLED settings
   OLED_PIN_SCL  = int(str(settings["OLED"]["PIN_SCL"]))
@@ -362,12 +379,12 @@ if __name__ == "__main__":
 
     # gobal devices initialization (I2C BME280)
     i2c = I2C(scl=Pin(BME280_PIN_SCL), sda=Pin(BME280_PIN_SDA))
-    bme = bme280.BME280(i2c=i2c)
+    bme = bme280.BME280(i2c=i2c, unit=DISPLAY_TEMPERATURE_UNIT)
     detect_i2c_device(i2c, "BME280", BME280_ADDRESS)
 
     # gobal devices initialization (1-Wire DS18B20)
     ow = onewire.OneWire(pin=Pin(DS18_PIN_DQ))
-    ds18 = ds18.DS18(ow=ow, reading_wait=DS18_READING_WAIT)
+    ds18 = ds18.DS18(ow=ow, reading_wait=DS18_READING_WAIT, unit=DISPLAY_TEMPERATURE_UNIT)
     detect_ow_device(ds18, "DS18X20", DS18_ADDRESS)
 
     # global devices initialization (Water Level Capacitive Sensor)

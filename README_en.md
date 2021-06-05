@@ -31,11 +31,11 @@ The meaning of each item displayed is as follows.
 | Classification | Display Item | Display Content | Unit |
 | ---- | ---- | ---- | ---- |
 | air | - | Atmosphere | - |
-| ^ | T | Atmospheric Temperature | C, Celsius |
+| ^ | T | Atmospheric Temperature | C, Degrees Celsius or F, Degrees Fahrenheit |
 | ^ | H | Atmospheric Humidity | %, Percent |
 | ^ | P | Atmospheric Pressure | hPa, Hectopascal |
 | water | - | Liquid | - |
-| ^ | W | Water Temperature | C, Celsius |
+| ^ | W | Water Temperature | C, Degrees Celsius or F, Degrees Fahrenheit |
 | ^ | L | Water Level | %, Percent |
 
 ## Hardware ハードウェア
@@ -180,6 +180,7 @@ This time, we will use esptool to the following steps.
 | COMMON | SPLASH_ICON | vertical / horizontal / v / h | vertical | - |
 | ^ | SPLASH_WAITING | splash icon display time | 3000 | msec |
 | ^ | PLATFORM_WAITING | platform information display time | 2000 | msec |
+| ^ | TEMPERATURE_UNIT | C or F | C | degrees celsius |
 | OLED | PIN_SCL | SCL pin | 4 | - |
 | ^ | PIN_SDA | SCL pin | 5 | - |
 | ^ | ADDRESS | SSD1306 OLED address | "0x3c" | - |

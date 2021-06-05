@@ -23,6 +23,8 @@ from ustruct import unpack, unpack_from
 from uarray import array
 import utime
 
+from lib import util
+
 
 # BME280 default address.
 BME280_I2CADDR = 0x76
@@ -49,6 +51,7 @@ class BME280:
                  mode=BME280_OSAMPLE_1,
                  address=BME280_I2CADDR,
                  i2c=None,
+                 unit="C",
                  **kwargs):
         """
         Constructor of BME280.
@@ -57,6 +60,7 @@ class BME280:
             mode : BME280 sampling mode
             address : I2C address
             i2c : machine.I2C object
+            unit : temperature unit
         """
         # Check that mode is valid.
         if mode not in [BME280_OSAMPLE_1, BME280_OSAMPLE_2, BME280_OSAMPLE_4,
@@ -70,6 +74,7 @@ class BME280:
         if i2c is None:
             raise ValueError('An I2C object is required.')
         self.i2c = i2c
+        self.unit = unit
 
         # load calibration data
         dig_88_a1 = self.i2c.readfrom_mem(self.address, 0x88, 26)
@@ -198,10 +203,15 @@ class BME280:
         """
         human readable values
 
+        Args:
+            unit: unit of return value, default = "C"
+
         Return:
             tupple of read values.
         """
         t, p, h = self.read_compensated_data()
+
+        t = util.conv_temperature_unit(t, self.unit)
 
         p = p // 256
         pi = p // 100
@@ -214,7 +224,7 @@ class BME280:
         # return ("{}C".format(t / 100),
         #         "{}.{:02d}hPa".format(pi, pd),
         #         "{}.{:02d}%".format(hi, hd))
-        return ("{:3.1f}C".format(t / 100),
+        return ("{:3.1f}{}".format(t / 100, self.unit),
                 "{}.{:01d}hPa".format(pi, pd),
                 "{}.{:01d}%".format(hi, hd))
         # ***** 2020.06.22 modify <E> *****

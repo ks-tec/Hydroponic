@@ -23,6 +23,8 @@ from micropython import const
 from ds18x20 import DS18X20
 import utime
 
+from lib import util
+
 
 # DS18x20 default waiting time
 DS18_READING_WAIT = const(750)
@@ -34,19 +36,24 @@ class DS18(DS18X20):
   And, this class have a property to get readings with the @values.
   """
 
-  def __init__(self, ow=None, reading_wait=DS18_READING_WAIT):
+  def __init__(self, 
+               ow=None, 
+               reading_wait=DS18_READING_WAIT, 
+               unit="C"):
     """
     Constructor of DS18.
 
     Args:
       ow : machine.OneWire object
       reading_wait : waiting time to read value
+      unit : temperature unit
     """
     if ow is None:
       raise ValueError('An OneWire object is required.')
 
     self.ow = ow
     self.reading_wait = reading_wait
+    self.unit = unit
 
     super().__init__(self.ow)
 
@@ -54,6 +61,9 @@ class DS18(DS18X20):
   def values(self):
     """
     human readable values
+
+    Args:
+        unit: unit of return value, default = "C"
 
     Return:
       tupple of read values.
@@ -69,6 +79,7 @@ class DS18(DS18X20):
       # print("                   (int): ", [int(r) for r in rom])
       # print("                   (hex): ", [hex(r) for r in rom])
       wtemp = self.read_temp(rom)
-      values.append("{:3.1f}C".format(wtemp))
+      wtemp = util.conv_temperature_unit(wtemp, self.unit)
+      values.append("{:3.1f}{}".format(wtemp, self.unit))
 
     return tuple(values)
