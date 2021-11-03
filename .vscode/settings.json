@@ -1,3 +1,11 @@
 {
-    "python.pythonPath": "C:\\Python\\python3\\python.exe"
+//    "python.pythonPath": "C:\\Python\\Python3\\Python.exe",
+    "python.autoComplete.extraPaths": [
+        "all-stubs/micropython_cpython_core",
+//        "all-stubs/micropython-1_14-frozen/esp32/GENERIC",
+        "all-stubs/micropython-esp32-1_14"
+    ],
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.jediEnabled": false,
 }

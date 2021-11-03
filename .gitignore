@@ -1,0 +1,14 @@
+all-stubs/*
+!all-stubs/micropython_cpython_core/
+!all-stubs/micropython-esp32-1_14/
+
+# # micropython-1_14-frozen for esp32
+# !all-stubs/micropython-1_14-frozen/
+# !all-stubs/micropython-1_14-frozen/esp32/
+# !all-stubs/micropython-1_14-frozen/esp32/GENERIC/
+# all-stubs/micropython-1_14-frozen/esp32/RELEASE/
+# all-stubs/micropython-1_14-frozen/esp32/TINYPICO/
+# all-stubs/micropython-1_14-frozen/esp8266/
+# all-stubs/micropython-1_14-frozen/GENERIC/
+# all-stubs/micropython-1_14-frozen/rp2/
+# all-stubs/micropython-1_14-frozen/stm32/

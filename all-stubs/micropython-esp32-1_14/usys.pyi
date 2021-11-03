@@ -1,0 +1,6 @@
+from typing import Any
+
+Node = Any
+
+def exit() -> None: ...
+def print_exception() -> None: ...

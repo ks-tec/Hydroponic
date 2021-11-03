@@ -4,5 +4,8 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+//		"python.pythonPath": "C:\\Users\\F575005\\.platformio\\penv\\Scripts\\python.exe"
+		"python.pythonPath": "C:\\Python\\Python3\\Python.exe"
+	}
 }
